@@ -1,0 +1,35 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+  name: SiakAgentPool
+
+steps:
+- script: mkdir src
+  displayName: 'Create permanent src root Directory'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+- task: FtpUpload@2
+  inputs:
+    credentialsOption: 'inputs'
+    serverUrl: 'ftps://waws-prod-cq1-041.ftp.azurewebsites.windows.net/site/wwwroot'
+    username: 'adigxs\$adigxs'
+    password: '0hwHNJATk4FSFjnaof9zBhBda4KnbXb2qZ1j44RdD9lKtkcanmzzHj9qwGd3'
+    rootDirectory: 'src'
+    filePatterns: '**'
+    remoteDirectory: '/site/wwwroot'
+    clean: false
+    cleanContents: false
+    preservePaths: true
+    trustSSL: false
+- task: PublishBuildArtifacts@1
+
